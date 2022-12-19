@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BIRTHModelStoreContainer" CdmEntityContainer="BIRTHEntities">
+    <EntitySetMapping Name="Children_information">
+      <EntityTypeMapping TypeName="BIRTHModel.Children_information">
+        <MappingFragment StoreEntitySet="Children_information">
+          <ScalarProperty Name="ChildrenName" ColumnName="ChildrenName" />
+          <ScalarProperty Name="Dateofbirth" ColumnName="Dateofbirth" />
+          <ScalarProperty Name="BirthRegistrationNumber" ColumnName="BirthRegistrationNumber" />
+          <ScalarProperty Name="placeofbirth" ColumnName="placeofbirth" />
+          <ScalarProperty Name="FatherNmae" ColumnName="FatherNmae" />
+          <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+          <ScalarProperty Name="parmanentAddress" ColumnName="parmanentAddress" />
+          <ScalarProperty Name="FatherNationality" ColumnName="FatherNationality" />
+          <ScalarProperty Name="MotherNationality" ColumnName="MotherNationality" />
+          <ScalarProperty Name="CHILDID" ColumnName="CHILDID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hosital_information">
+      <EntityTypeMapping TypeName="BIRTHModel.Hosital_information">
+        <MappingFragment StoreEntitySet="Hosital_information">
+          <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+          <ScalarProperty Name="HospitalLocation" ColumnName="HospitalLocation" />
+          <ScalarProperty Name="HospitalCode" ColumnName="HospitalCode" />
+          <ScalarProperty Name="TimeofBirth" ColumnName="TimeofBirth" />
+          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BIRTHModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

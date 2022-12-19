@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="foodModel1StoreContainer" CdmEntityContainer="foodEntities1">
+    <EntitySetMapping Name="collections">
+      <EntityTypeMapping TypeName="foodModel1.collection">
+        <MappingFragment StoreEntitySet="collection">
+          <ScalarProperty Name="Expiredate" ColumnName="Expiredate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Assignto" ColumnName="Assignto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="foodModel1.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIRTHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Children_information">
+    <Key>
+      <PropertyRef Name="BirthRegistrationNumber" />
+    </Key>
+    <Property Name="ChildrenName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dateofbirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BirthRegistrationNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="placeofbirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FatherNmae" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="parmanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FatherNationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MotherNationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CHILDID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hosital_information" Relationship="Self.FK_Children_information_Hosital_information" FromRole="Children_information" ToRole="Hosital_information" />
+  </EntityType>
+  <EntityType Name="Hosital_information">
+    <Key>
+      <PropertyRef Name="HospitalID" />
+    </Key>
+    <Property Name="HospitalName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HospitalLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HospitalCode" Type="Int32" Nullable="false" />
+    <Property Name="TimeofBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HospitalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Children_information" Relationship="Self.FK_Children_information_Hosital_information" FromRole="Hosital_information" ToRole="Children_information" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Children_information_Hosital_information">
+    <End Role="Hosital_information" Type="Self.Hosital_information" Multiplicity="1" />
+    <End Role="Children_information" Type="Self.Children_information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hosital_information">
+        <PropertyRef Name="HospitalID" />
+      </Principal>
+      <Dependent Role="Children_information">
+        <PropertyRef Name="CHILDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BIRTHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Children_information" EntityType="Self.Children_information" />
+    <EntitySet Name="Hosital_information" EntityType="Self.Hosital_information" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Children_information_Hosital_information" Association="Self.FK_Children_information_Hosital_information">
+      <End Role="Hosital_information" EntitySet="Hosital_information" />
+      <End Role="Children_information" EntitySet="Children_information" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

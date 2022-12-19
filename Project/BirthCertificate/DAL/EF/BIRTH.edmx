@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BIRTHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Children_information">
+          <Key>
+            <PropertyRef Name="BirthRegistrationNumber" />
+          </Key>
+          <Property Name="ChildrenName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dateofbirth" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthRegistrationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="placeofbirth" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherNmae" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MotherName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="parmanentAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FatherNationality" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MotherNationality" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CHILDID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hosital_information">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HospitalLocation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HospitalCode" Type="int" Nullable="false" />
+          <Property Name="TimeofBirth" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HospitalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HospitalEmployee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dob" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Vinfo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BirthRegistrationNumber" Type="int" Nullable="false" />
+          <Property Name="Createdat" Type="datetime" Nullable="false" />
+          <Property Name="Expireat" Type="datetime" Nullable="false" />
+          <Property Name="tokenaccess" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VolInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dob" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Children_information_Hosital_information">
+          <End Role="Hosital_information" Type="Self.Hosital_information" Multiplicity="1" />
+          <End Role="Children_information" Type="Self.Children_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hosital_information">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Children_information">
+              <PropertyRef Name="CHILDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalEmployee_VolInfo">
+          <End Role="VolInfo" Type="Self.VolInfo" Multiplicity="1" />
+          <End Role="HospitalEmployee" Type="Self.HospitalEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VolInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalEmployee">
+              <PropertyRef Name="Vinfo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Token_Children_information">
+          <End Role="Children_information" Type="Self.Children_information" Multiplicity="1" />
+          <End Role="Token" Type="Self.Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children_information">
+              <PropertyRef Name="BirthRegistrationNumber" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="BirthRegistrationNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BIRTHModelStoreContainer">
+          <EntitySet Name="Children_information" EntityType="Self.Children_information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hosital_information" EntityType="Self.Hosital_information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalEmployee" EntityType="Self.HospitalEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VolInfo" EntityType="Self.VolInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Children_information_Hosital_information" Association="Self.FK_Children_information_Hosital_information">
+            <End Role="Hosital_information" EntitySet="Hosital_information" />
+            <End Role="Children_information" EntitySet="Children_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalEmployee_VolInfo" Association="Self.FK_HospitalEmployee_VolInfo">
+            <End Role="VolInfo" EntitySet="VolInfo" />
+            <End Role="HospitalEmployee" EntitySet="HospitalEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Token_Children_information" Association="Self.FK_Token_Children_information">
+            <End Role="Children_information" EntitySet="Children_information" />
+            <End Role="Token" EntitySet="Token" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BIRTHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Children_information">
+          <Key>
+            <PropertyRef Name="BirthRegistrationNumber" />
+          </Key>
+          <Property Name="ChildrenName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dateofbirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthRegistrationNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="placeofbirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FatherNmae" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="parmanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FatherNationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MotherNationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CHILDID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hosital_information" Relationship="Self.FK_Children_information_Hosital_information" FromRole="Children_information" ToRole="Hosital_information" />
+          <NavigationProperty Name="Tokens" Relationship="Self.FK_Token_Children_information" FromRole="Children_information" ToRole="Token" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hosital_information">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HospitalLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HospitalCode" Type="Int32" Nullable="false" />
+          <Property Name="TimeofBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HospitalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Children_information" Relationship="Self.FK_Children_information_Hosital_information" FromRole="Hosital_information" ToRole="Children_information" />
+        </EntityType>
+        <EntityType Name="HospitalEmployee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Vinfo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VolInfo" Relationship="Self.FK_HospitalEmployee_VolInfo" FromRole="HospitalEmployee" ToRole="VolInfo" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BirthRegistrationNumber" Type="Int32" Nullable="false" />
+          <Property Name="Createdat" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expireat" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tokenaccess" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Children_information" Relationship="Self.FK_Token_Children_information" FromRole="Token" ToRole="Children_information" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VolInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dob" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HospitalEmployees" Relationship="Self.FK_HospitalEmployee_VolInfo" FromRole="VolInfo" ToRole="HospitalEmployee" />
+        </EntityType>
+        <Association Name="FK_Children_information_Hosital_information">
+          <End Role="Hosital_information" Type="Self.Hosital_information" Multiplicity="1" />
+          <End Role="Children_information" Type="Self.Children_information" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hosital_information">
+              <PropertyRef Name="HospitalID" />
+            </Principal>
+            <Dependent Role="Children_information">
+              <PropertyRef Name="CHILDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Token_Children_information">
+          <End Role="Children_information" Type="Self.Children_information" Multiplicity="1" />
+          <End Role="Token" Type="Self.Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Children_information">
+              <PropertyRef Name="BirthRegistrationNumber" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="BirthRegistrationNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalEmployee_VolInfo">
+          <End Role="VolInfo" Type="Self.VolInfo" Multiplicity="1" />
+          <End Role="HospitalEmployee" Type="Self.HospitalEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VolInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalEmployee">
+              <PropertyRef Name="Vinfo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BIRTHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Children_information" EntityType="Self.Children_information" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Hosital_information" EntityType="Self.Hosital_information" />
+          <EntitySet Name="HospitalEmployees" EntityType="Self.HospitalEmployee" />
+          <EntitySet Name="Tokens" EntityType="Self.Token" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="VolInfoes" EntityType="Self.VolInfo" />
+          <AssociationSet Name="FK_Children_information_Hosital_information" Association="Self.FK_Children_information_Hosital_information">
+            <End Role="Hosital_information" EntitySet="Hosital_information" />
+            <End Role="Children_information" EntitySet="Children_information" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Token_Children_information" Association="Self.FK_Token_Children_information">
+            <End Role="Children_information" EntitySet="Children_information" />
+            <End Role="Token" EntitySet="Tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalEmployee_VolInfo" Association="Self.FK_HospitalEmployee_VolInfo">
+            <End Role="VolInfo" EntitySet="VolInfoes" />
+            <End Role="HospitalEmployee" EntitySet="HospitalEmployees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BIRTHModelStoreContainer" CdmEntityContainer="BIRTHEntities">
+          <EntitySetMapping Name="Children_information">
+            <EntityTypeMapping TypeName="BIRTHModel.Children_information">
+              <MappingFragment StoreEntitySet="Children_information">
+                <ScalarProperty Name="ChildrenName" ColumnName="ChildrenName" />
+                <ScalarProperty Name="Dateofbirth" ColumnName="Dateofbirth" />
+                <ScalarProperty Name="BirthRegistrationNumber" ColumnName="BirthRegistrationNumber" />
+                <ScalarProperty Name="placeofbirth" ColumnName="placeofbirth" />
+                <ScalarProperty Name="FatherNmae" ColumnName="FatherNmae" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="parmanentAddress" ColumnName="parmanentAddress" />
+                <ScalarProperty Name="FatherNationality" ColumnName="FatherNationality" />
+                <ScalarProperty Name="MotherNationality" ColumnName="MotherNationality" />
+                <ScalarProperty Name="CHILDID" ColumnName="CHILDID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BIRTHModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hosital_information">
+            <EntityTypeMapping TypeName="BIRTHModel.Hosital_information">
+              <MappingFragment StoreEntitySet="Hosital_information">
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="HospitalLocation" ColumnName="HospitalLocation" />
+                <ScalarProperty Name="HospitalCode" ColumnName="HospitalCode" />
+                <ScalarProperty Name="TimeofBirth" ColumnName="TimeofBirth" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalEmployees">
+            <EntityTypeMapping TypeName="BIRTHModel.HospitalEmployee">
+              <MappingFragment StoreEntitySet="HospitalEmployee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Vinfo" ColumnName="Vinfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="BIRTHModel.Token">
+              <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BirthRegistrationNumber" ColumnName="BirthRegistrationNumber" />
+                <ScalarProperty Name="Createdat" ColumnName="Createdat" />
+                <ScalarProperty Name="Expireat" ColumnName="Expireat" />
+                <ScalarProperty Name="tokenaccess" ColumnName="tokenaccess" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BIRTHModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VolInfoes">
+            <EntityTypeMapping TypeName="BIRTHModel.VolInfo">
+              <MappingFragment StoreEntitySet="VolInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

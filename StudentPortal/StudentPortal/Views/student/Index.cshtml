@@ -1,0 +1,61 @@
+﻿@*@{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>*@
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .links a {
+        float: left;
+        color: #1d110e;
+        text-align: center;
+        padding: 8px 10px;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+        .links a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .links a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .links a.active1 {
+            background-color: lightseagreen;
+            color: white;
+        }
+</style>
+<br />
+<br />
+<hr />
+<span class="alert-success"><b>@TempData["message"]</b></span>
+<br />
+<br />
+<table class="table table-bordered">
+    @foreach (var st in Model)
+    {
+        <tr>
+            <td>@st.Id</td>
+            <td>@st.Name</td>
+            <td>@st.Cgpa</td>
+            @*<td>@st.Qty</td>*@
+            <td><a href="/Students/edit/@st.Id" class="btn btn-info">Edit</a></td>
+            <td><a href="/Students/delete/@st.Id" class="btn btn-danger">Delete</a></td>
+            <
+        </tr>
+        <tr><td><a href="/Students/cart/@st.Id" class="btn btn-default">Add Course</a></td></tr>
+    }
+
+</table>
+

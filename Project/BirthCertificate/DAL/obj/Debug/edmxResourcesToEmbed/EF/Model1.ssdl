@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIRTHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Children_information">
+    <Key>
+      <PropertyRef Name="BirthRegistrationNumber" />
+    </Key>
+    <Property Name="ChildrenName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Dateofbirth" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BirthRegistrationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="placeofbirth" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FatherNmae" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MotherName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="parmanentAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FatherNationality" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MotherNationality" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CHILDID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hosital_information">
+    <Key>
+      <PropertyRef Name="HospitalID" />
+    </Key>
+    <Property Name="HospitalName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="HospitalLocation" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="HospitalCode" Type="int" Nullable="false" />
+    <Property Name="TimeofBirth" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="HospitalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Children_information_Hosital_information">
+    <End Role="Hosital_information" Type="Self.Hosital_information" Multiplicity="1" />
+    <End Role="Children_information" Type="Self.Children_information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hosital_information">
+        <PropertyRef Name="HospitalID" />
+      </Principal>
+      <Dependent Role="Children_information">
+        <PropertyRef Name="CHILDID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BIRTHModelStoreContainer">
+    <EntitySet Name="Children_information" EntityType="Self.Children_information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hosital_information" EntityType="Self.Hosital_information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Children_information_Hosital_information" Association="Self.FK_Children_information_Hosital_information">
+      <End Role="Hosital_information" EntitySet="Hosital_information" />
+      <End Role="Children_information" EntitySet="Children_information" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
